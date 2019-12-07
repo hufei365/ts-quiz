@@ -1,0 +1,17 @@
+{
+	"name": "ts-quiz",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "tsc --watch",
+		"test": "node ./test/index.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {},
+	"devDependencies": {
+		"typescript": "^3.7.3"
+	}
+}
