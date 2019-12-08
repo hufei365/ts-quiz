@@ -17,16 +17,25 @@ interface middleware{
 abstract class Base {
     config: any
     middleware: middleware
+    plugins:any
     constructor(config){
         this.config = config
+        this.plugins = {}
         this.middleware = {
             preparser: [],
             parser: [],
             postparser: []
         }
     }
-    use(stage:stage, fn:Function):void{
-        this.middleware[stage].push(fn)
+    init(){
+        ['body', 'answer'].forEach( v=>{
+            this.use( v )
+        })
+    }
+    use(p:string):void{
+        for(let stage in this.plugins[p]){
+            this.middleware[stage].push(p[stage])
+        }
     }
 }
 
@@ -45,7 +54,6 @@ export default class Q extends Base {
         return ''
     }
 }
-
 
 function isExpire(expire:number):boolean{
     return Date.now() - this.timeStamp >  expire
