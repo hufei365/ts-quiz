@@ -1,4 +1,4 @@
-import { directive } from "@babel/types"
+import { directive, stringLiteral } from "@babel/types"
 
 export default class QBase implements Base{
     data:Question
@@ -6,7 +6,6 @@ export default class QBase implements Base{
     preparser: Function[]
     postparser: Function[]
     parser: Function
-    render: Function
     constructor(data){
         this.data = data;
         this.setup(data.struct_id)
@@ -14,10 +13,22 @@ export default class QBase implements Base{
     setup(struct:string|number){
         this.parser = compose.apply(this, [...this.preparser, ()=>{}, ...this.postparser]) 
     }
+    render(arr){
+        arr.map( v=>{
+            if(typeof v === 'string'){
+                return v;
+            } else {
+                return v.render()
+            }
+        })
+    }
     getHtml(){
         return ''
     }
     bindEvents(){}
+    compile(template:string){
+        
+    }
 }
 
 
