@@ -1,14 +1,18 @@
+import { directive } from "@babel/types"
+
 export default class QBase implements Base{
     data:Question
     wrap:HTMLElement
+    preparser: Function[]
+    postparser: Function[]
+    parser: Function
+    render: Function
     constructor(data){
         this.data = data;
+        this.setup(data.struct_id)
     }
-    preparser(){}
-    parser(){}
-    postparser(){}
-    render(){
-        this.wrap.innerHTML = this.getHtml()
+    setup(struct:string|number){
+        this.parser = compose.apply(this, [...this.preparser, ()=>{}, ...this.postparser]) 
     }
     getHtml(){
         return ''
@@ -16,3 +20,28 @@ export default class QBase implements Base{
     bindEvents(){}
 }
 
+
+function compose(...funcs: Function[]) {
+    if (funcs.length === 0) {
+        // infer the argument type so it is usable in inference down the line
+        return <T>(arg: T) => arg
+    }
+
+    if (funcs.length === 1) {
+        return funcs[0]
+    }
+
+    return funcs.reduce((a, b) => (...args: any) => a(b(...args)))
+}
+
+
+{
+    name: 'q'
+    children: [
+        {
+            name: 'q1'
+        }
+    ]
+}
+
+// <div name="q"> <span>boodk {{{q1}}}</span> bodk  </div>
