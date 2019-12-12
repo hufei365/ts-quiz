@@ -1,14 +1,15 @@
 import { directive, stringLiteral } from "@babel/types"
 
-export default class QBase implements Base{
+export default class QBase {
+    struct: Structs
     data:Question
     wrap:HTMLElement
     preparser: Function[]
     postparser: Function[]
     parser: Function
-    constructor(data){
-        this.data = data;
-        this.setup(data.struct_id)
+    constructor(struct){
+        this.struct = struct;
+        this.setup(this.data.struct_id)
     }
     setup(struct:string|number){
         this.parser = compose.apply(this, [...this.preparser, ()=>{}, ...this.postparser]) 
