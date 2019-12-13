@@ -1,34 +1,25 @@
 import { directive, stringLiteral } from "@babel/types"
 
-export default class QBase {
+abstract class Base{
     struct: Structs
     data:Question
     wrap:HTMLElement
+    use(stage:string, fn: Function){}
     preparser: Function[]
     postparser: Function[]
     parser: Function
+    beforeRender: Function
+    afterRender: Function
+    getHTML(): string{
+        return ''
+    } 
+    
+}
+export default class QBase extends Base {    
     constructor(struct){
+        super()
         this.struct = struct;
         this.setup(this.data.struct_id)
-    }
-    setup(struct:string|number){
-        this.parser = compose.apply(this, [...this.preparser, ()=>{}, ...this.postparser]) 
-    }
-    render(arr){
-        arr.map( v=>{
-            if(typeof v === 'string'){
-                return v;
-            } else {
-                return v.render()
-            }
-        })
-    }
-    getHtml(){
-        return ''
-    }
-    bindEvents(){}
-    compile(template:string){
-        
     }
 }
 
