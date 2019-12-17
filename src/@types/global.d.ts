@@ -34,10 +34,6 @@ declare interface Structs {
     [x: string]: string[]
 }
 
-declare interface Config {
-
-}
-
 declare interface Question {
     readonly struct_id: STRUCT
     readonly type_id: number | string
