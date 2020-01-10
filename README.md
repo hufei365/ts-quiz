@@ -146,19 +146,19 @@ class Base {
 Base.extend({})  /* 扩展Base类 */ // 动态扩展Baes， 那么它的子类能否继承这些扩展属性和方法
 
 ```
-第二层 Quiz类各个机构的处理
-``` 
 
+
+第二层 Quiz类各个结构的处理
+
+
+```js 
 class Blank extends Base {
     constructor(){
         super()
     }
 }
-
-
-
-
 ```
+
 第三层 封装不同的Quiz到一个Class
 
 ```typescript
@@ -168,3 +168,5 @@ class Q {
  }   
 }
 ```
+
+

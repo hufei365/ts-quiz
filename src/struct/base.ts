@@ -1,8 +1,7 @@
 import { directive, stringLiteral } from "@babel/types"
 
-type Render = (data:Question)=>string;
 type Component = {
-    getHTML?:Render
+    getHTML?(data: Question): string;
     preparser?:Function
     postparser?:Function
 }
